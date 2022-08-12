@@ -1,0 +1,184 @@
+-----------------------------------------------
+-------------cardapio_app_server-------------
+# Gerar package.json
+  npm init
+  ou
+  yarn init
+
+# Instalar pacotes do projeto
+  npm install
+  ou
+  yarn install
+
+# Iniciar o projeto
+  npm run dev
+  ou
+  yarn run dev
+
+# Instalar cli do typeorm com npm
+  npm install -g typeorm
+
+# Instalar cli do typeorm com yarn
+  yarn add -g typeorm
+
+# Instalar pacotes com npm
+  npm install --save typeorm
+  npm install --save reflect-metadata
+  npm install --save mysql
+  npm install --save mysql2
+  npm install --save express-async-errors
+  npm install --save cors
+  npm install -D @types/cors
+  npm install --save express
+  npm install -D @types/express
+  npm install --save yup
+  npm install -D @types/yup
+  npm install -D typescript
+  npm install -D ts-node
+  npm install -D ts-node-dev
+  npm install --save multer
+  npm install -D @types/multer
+  npm install passport
+  npm install -D @types/passport
+  npm install passport-local
+  npm install -D @types/passport-local
+  npm install express-session
+  npm install -D @types/express-session
+  npm install crypto-js
+  npm install -D @types/crypto-js
+  npm install date-fns
+
+# Instalar pacotes com yarn
+  yarn add typeorm
+  yarn add reflect-metadata
+  yarn add mysql
+  yarn add express-async-errors
+  yarn add cors
+  yarn add -D @types/cors
+  yarn add express
+  yarn add -D @types/express
+  yarn add yup
+  yarn add -D @types/yup
+  yarn add -D typescript
+  yarn add -D ts-node
+  yarn add -D ts-node-dev
+  yarn add multer
+  yarn add -D @types/multer
+  yarn add passport
+  yarn add -D @types/passport
+  yarn add passport-local
+  yarn add -D @types/passport-local
+  yarn add express-session
+  yarn add -D @types/express-session
+  yarn add crypto-js
+  yarn add -D @types/crypto-js
+  yarn add date-fns
+
+# Gera o tsconfig.json com npm/npx
+  npx tsc --init
+# Gera o tsconfig.json com npm
+  yarn tsc --init
+
+# Gera migration com yarn
+  yarn typeorm migration:create src/migration/create_administradores
+  yarn typeorm migration:create src/migration/create_empresas
+  yarn typeorm migration:create src/migration/create_clientes
+  yarn typeorm migration:create src/migration/create_produtos
+  yarn typeorm migration:create src/migration/create_imagens
+  yarn typeorm migration:create src/migration/create_ingredientes
+  yarn typeorm migration:create src/migration/create_pedidos
+  yarn typeorm migration:create src/migration/create_itens_pedido
+  yarn typeorm migration:create src/migration/create_ingredientes_removidos
+  yarn typeorm migration:create src/migration/create_ingredientes_opcionais
+
+# Gera migration com npm/npx
+  npx typeorm migration:create src/migration/create_administradores
+  npx typeorm migration:create src/migration/create_empresas
+  npx typeorm migration:create src/migration/create_clientes
+  npx typeorm migration:create src/migration/create_produtos
+  npx typeorm migration:create src/migration/create_imagens
+  npx typeorm migration:create src/migration/create_ingredientes
+  npx typeorm migration:create src/migration/create_pedidos
+  npx typeorm migration:create src/migration/create_itens_pedido
+  npx typeorm migration:create src/migration/create_ingredientes_removidos
+  npx typeorm migration:create src/migration/create_ingredientes_opcionais
+
+# Gera entity com yarn
+  yarn typeorm entity:create src/entity/Administrador
+  yarn typeorm entity:create src/entity/Empresa
+  yarn typeorm entity:create src/entity/Cliente
+  yarn typeorm entity:create src/entity/Produto
+  yarn typeorm entity:create src/entity/Imagem
+  yarn typeorm entity:create src/entity/Ingrediente
+  yarn typeorm entity:create src/entity/Pedido
+  yarn typeorm entity:create src/entity/ItemPedido
+  yarn typeorm entity:create src/entity/IngredienteRemovido
+  yarn typeorm entity:create src/entity/IngredienteOpcional
+
+# Gera entity com npm/npx
+  npx typeorm entity:create src/entity/Administrador
+  npx typeorm entity:create src/entity/Empresa
+  npx typeorm entity:create src/entity/Cliente
+  npx typeorm entity:create src/entity/Produto
+  npx typeorm entity:create src/entity/Imagem
+  npx typeorm entity:create src/entity/Ingrediente
+  npx typeorm entity:create src/entity/Pedido
+  npx typeorm entity:create src/entity/ItemPedido
+  npx typeorm entity:create src/entity/IngredienteRemovido
+  npx typeorm entity:create src/entity/IngredienteOpcional
+
+# Roda migration com yarn
+  yarn typeorm migration:run
+
+# Roda migration com npm/npx
+  npx typeorm migration:run
+
+# Roda migration com o cli do typeorm
+  typeorm migration:run
+
+# Reverte migration com yarn
+  yarn typeorm migration:revert
+
+# Reverte migration com npm/npx
+  npx typeorm migration:revert
+
+# Reverte migration com o cli do typeorm
+  typeorm migration:revert
+
+# Criar projeto com database mysql com yarn
+  yarn typeorm init --database mysql
+  ou
+  yarn typeorm init --name cardapio_app_server --database mysql
+
+# Criar projeto com database mysql com npm/npx
+  npx typeorm init --database mysql
+  ou
+  npx typeorm init --name cardapio_app_server --database mysql
+
+# Criar projeto com database mysql com o cli do typeorm
+  typeorm init --database mysql
+  ou
+  typeorm init --name cardapio_app_server --database mysql
+
+# Opcional
+    npm install passport-jwt
+    npm install -D @types/passport-jwt
+    npm install --save cookie-parser
+    npm install -D @types/cookie-parser
+    npm install --save morgan
+    npm install -D @types/morgan
+    npm install --save http-errors
+    npm install -D @types/http-errors
+    ou
+    yarn add passport-jwt
+    yarn add -D @types/passport-jwt
+    yarn add cookie-parser
+    yarn add -D @types/cookie-parser
+    yarn add morgan
+    yarn add -D @types/morgan
+    yarn add http-errors
+    yarn add -D @types/http-errors
+
+# Link de teste
+  http://localhost:3333/
+-----------------------------------------------
