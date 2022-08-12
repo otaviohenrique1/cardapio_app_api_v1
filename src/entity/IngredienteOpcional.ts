@@ -23,7 +23,7 @@ export class IngredienteOpcional extends BaseEntity {
   /* muitos opcionais em 1 pedido */
   @ManyToOne(() => ItemPedido, (itemPedido) => itemPedido.ingredientes_opcionais)
   @JoinColumn({ name: 'itemPedidoId' })
-  pedido_refeicao: ItemPedido;
+  item_pedido: ItemPedido;
 
   @Column({ type: 'integer', unsigned: true })
   itemPedidoId: number;

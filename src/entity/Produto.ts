@@ -72,7 +72,7 @@ export class Produto extends BaseEntity {
   /* 1 refeicao do pedido pode ter nenhum ou 1 ou mais opcionais */
   /* Ver se vai ser opcional */
   /* Ver se vai ser cadastrado no cadastro da refeicao */
-  @OneToMany(() => IngredienteOpcional, opcional => opcional.pedido_refeicao, {
+  @OneToMany(() => IngredienteOpcional, opcional => opcional.item_pedido, {
     cascade: ['insert', 'update', 'remove']
   })
   lista_opcionais: IngredienteOpcional[];
