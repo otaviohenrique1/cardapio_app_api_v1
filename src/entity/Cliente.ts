@@ -1,5 +1,5 @@
 import { BaseEntity, Column, Entity, Generated, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import Empresa from "./Empresa";
+import { Empresa } from "./Empresa";
 import { Pedido } from "./Pedido";
 
 @Entity('cliente')
