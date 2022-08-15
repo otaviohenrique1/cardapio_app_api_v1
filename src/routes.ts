@@ -24,11 +24,11 @@ routes.post('/empresa/login', login_empresa);
 /**
  * Rotas da refeicao
  */
-routes.get('/refeicao/cardapio/:id', listar_produtos);
-routes.get('/refeicao/:id', busca_produto);
-routes.post('/refeicao', upload.array('imagem'), criar_produto);
-routes.put('/refeicao/:id', upload.array('imagem'), atualizar_produto);
-routes.delete('/refeicao/:id', apagar_produto);
+routes.get('/produto/cardapio/:id', listar_produtos);
+routes.get('/produto/:id', busca_produto);
+routes.post('/produto', upload.array('imagem'), criar_produto);
+routes.put('/produto/:id', upload.array('imagem'), atualizar_produto);
+routes.delete('/produto/:id', apagar_produto);
 
 /**
  * Rotas do pedido
