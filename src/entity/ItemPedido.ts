@@ -25,7 +25,7 @@ export class ItemPedido extends BaseEntity {
   quantidade: number;
 
   /* muitas refeicoes em 1 pedido */
-  @ManyToOne(() => Pedido, pedido => pedido.lista_refeicoes)
+  @ManyToOne(() => Pedido, pedido => pedido.listaItensPedidos)
   @JoinColumn({ name: 'pedidoId' })
   pedido: Pedido;
 

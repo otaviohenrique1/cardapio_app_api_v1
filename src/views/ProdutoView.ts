@@ -18,7 +18,7 @@ export default {
       quantidade, unidade_quantidade, tipo_produto
     };
   },
-  renderMany(refeicoes: Produto[]) {
-    return refeicoes.map(produto => this.render(produto));
+  renderMany(produtos: Produto[]) {
+    return produtos.map(produto => this.render(produto));
   }
 };

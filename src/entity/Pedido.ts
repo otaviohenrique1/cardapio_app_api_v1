@@ -40,5 +40,5 @@ export class Pedido extends BaseEntity {
   @OneToMany(() => ItemPedido, item => item.pedido, {
     cascade: ['insert']
   })
-  lista_refeicoes: ItemPedido[];
+  listaItensPedidos: ItemPedido[];
 }

@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
-import { getRepository } from "typeorm";
-import { valida_alualizacao_refeicao, valida_criacao_refeicao } from "../utils/SchemasValidacao";
-import Refeicao from "../entity/Refeicao";
-import refeicaoView from "../views/RefeicaoView";
+import { AppDataSource } from "../config/connection";
+import { valida_alualizacao_refeicao as valida_alualizacao_produto, valida_criacao_refeicao as valida_criacao_produto } from "../utils/SchemasValidacao";
+import { Produto } from "../entity/Produto";
+import produtoView from "../views/ProdutoView";
 import { Imagem } from "../entity/Imagem";
 import fs from "fs";
 import path from "path";
@@ -18,54 +18,59 @@ interface IngredienteOpcionalTypes {
 }
 
 /**
- * Listar todas as refeicoes cadastradas pelo usuario, usando o id do mesmo
+ * Listar todas os produtos cadastradas pelo usuario, usando o id do mesmo
  */
-export async function listar_refeicoes(request: Request, response: Response, next: NextFunction) {
+export async function listar_produtos(request: Request, response: Response, next: NextFunction) {
   const { id } = request.params;
-  const refeicaoRepository = getRepository(Refeicao);
-  const refeicao = await refeicaoRepository.find({
-    where: { empresaId: id },
+  const produtoRepository = AppDataSource.getRepository(Produto);
+  const produto = await produtoRepository.find({
+    where: {
+      empresaId: parseInt(id),
+    },
     relations: ['imagens', 'ingredientes', 'lista_opcionais'],
   });
-  return response.json(refeicaoView.renderMany(refeicao));
+  return response.json(produtoView.renderMany(produto));
 }
 
 /**
  * Listar todas as refeicoes cadastradas pelo usuario, usando o id do mesmo e se o valor da coluna 'ativo' for true
  */
- export async function listar_refeicoes_ativas(request: Request, response: Response, next: NextFunction) {
+ export async function listar_produtos_ativas(request: Request, response: Response, next: NextFunction) {
   const { id } = request.params;
-  const refeicaoRepository = getRepository(Refeicao);
-  const refeicao = await refeicaoRepository.find({
+  const produtoRepository = AppDataSource.getRepository(Produto);
+  const produto = await produtoRepository.find({
     where: { 
-      empresaId: id,
+      empresaId: parseInt(id),
       ativo: true
     },
     relations: ['imagens', 'ingredientes', 'lista_opcionais'],
   });
-  return response.json(refeicaoView.renderMany(refeicao));
+  return response.json(produtoView.renderMany(produto));
 }
 
 /**
  * Busca uma refeicao cadastrada usando o id da mesma e exibe os seus dados
  */
-export async function busca_refeicao(request: Request, response: Response, next: NextFunction) {
+export async function busca_produto(request: Request, response: Response, next: NextFunction) {
   const { id } = request.params;
-  const refeicaoRepository = getRepository(Refeicao);
-  const refeicao = await refeicaoRepository.findOneOrFail(id,
-    { relations: ['imagens', 'ingredientes', 'lista_opcionais'] }
-  );
-  return response.json(refeicaoView.render(refeicao));
+  const produtoRepository = AppDataSource.getRepository(Produto);
+  const produto = await produtoRepository.findOneOrFail({
+    where: {
+      id: parseInt(id),
+    },
+    relations: ['imagens', 'ingredientes', 'lista_opcionais'],
+  });
+  return response.json(produtoView.render(produto));
 }
 
 /**
  * Cadastrada uma refeicao
  */
-export async function criar_refeicao(request: Request, response: Response, next: NextFunction) {
+export async function criar_produto(request: Request, response: Response, next: NextFunction) {
   const { nome, preco, descricao, ativo, data_cadastro, data_modificacao_cadastro, ingredientes,
     quantidade, unidade_quantidade, tipo_produto, ingredientes_opcionais, empresa_id } = request.body;
 
-  const refeicaoRepository = getRepository(Refeicao);
+  const produtoRepository = AppDataSource.getRepository(Produto);
 
   const requestImagens = request.files as Express.Multer.File[];
   const imagens = requestImagens.map((imagem) => {
@@ -82,23 +87,25 @@ export async function criar_refeicao(request: Request, response: Response, next:
     quantidade, unidade_quantidade, tipo_produto, empresaId: empresa_id
   };
 
-  await valida_criacao_refeicao.validate(data, { abortEarly: false });
-  const refeicao = refeicaoRepository.create(data);
-  await refeicaoRepository.save(refeicao);
+  await valida_criacao_produto.validate(data, { abortEarly: false });
+  const produto = produtoRepository.create(data);
+  await produtoRepository.save(produto);
 
-  return response.status(201).json(refeicao);
+  return response.status(201).json(produto);
 }
 
 /**
  * Apaga uma refeicao, usando o id da mesma
  */
-export async function apagar_refeicao(request: Request, response: Response, next: NextFunction) {
+export async function apagar_produto(request: Request, response: Response, next: NextFunction) {
   const { id } = request.params;
-  const refeicaoRepository = getRepository(Refeicao);
-  const imagemRepository = getRepository(Imagem);
+  const produtoRepository = AppDataSource.getRepository(Produto);
+  const imagemRepository = AppDataSource.getRepository(Imagem);
 
   const imagem = await imagemRepository.find({
-    where: { refeicaoId: id },
+    where: {
+      produtoId: parseInt(id),
+    },
   });
 
   imagem.forEach(async (item) => {
@@ -111,12 +118,12 @@ export async function apagar_refeicao(request: Request, response: Response, next
       //   console.log("Arquivo apagado");
       // }
     });
-    await imagemRepository.delete(item.refeicaoId);
+    await imagemRepository.delete(item.produtoId);
   })
 
-  const refeicao = await refeicaoRepository.delete(id);
+  const produto = await produtoRepository.delete(id);
 
-  return response.status(200).json(refeicao);
+  return response.status(200).json(produto);
 }
 
 interface FotoType {
@@ -128,14 +135,14 @@ interface FotoType {
 /**
  * Atualiza os dados de uma refeicao, usando o id da mesma para busca-la no banco de dados
  */
-export async function atualizar_refeicao(request: Request, response: Response, next: NextFunction) {
+export async function atualizar_produto(request: Request, response: Response, next: NextFunction) {
   const { id, nome, preco, descricao, ativo, imagens_removidas,
     quantidade, unidade_quantidade, tipo_produto } = request.body;
-  const refeicaoRepository = getRepository(Refeicao);
+  const produtoRepository = AppDataSource.getRepository(Produto);
 
   /* Testar */
   let lista_imagens_removidas = (imagens_removidas as FotoType[]);
-  const imagemRepository = getRepository(Imagem);
+  const imagemRepository = AppDataSource.getRepository(Imagem);
   lista_imagens_removidas.forEach(async (item) => {
     await imagemRepository.delete(item.id);
     const fileDestination = path.join(__dirname, '..', '..', 'uploads', 'fotos');
@@ -169,8 +176,8 @@ export async function atualizar_refeicao(request: Request, response: Response, n
   const data = { nome, preco, ingredientes, ativo, descricao,
     imagens, quantidade, unidade_quantidade, tipo_produto, lista_opcionais };
 
-  await valida_alualizacao_refeicao.validate(data, { abortEarly: false });
-  const refeicao = await refeicaoRepository.update(id, data);
+  await valida_alualizacao_produto.validate(data, { abortEarly: false });
+  const produto = await produtoRepository.update(id, data);
 
-  return response.status(201).json(refeicao);
+  return response.status(201).json(produto);
 }

@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { atualizar_empresa, buscar_empresa, criar_empresa, listar_empresas, login_empresa } from "./controllers/EmpresaController";
-import { atualizar_refeicao, busca_refeicao, criar_refeicao, listar_refeicoes, apagar_refeicao } from "./controllers/RefeicaoController";
+import { atualizar_produto, busca_produto, criar_produto, listar_produtos, apagar_produto } from "./controllers/RefeicaoController";
 import { atualizar_pedido, busca_pedido, criar_pedido, listar_pedidos } from "./controllers/PedidoController";
 import { atualizar_cliente, busca_cliente, criar_cliente, listar_clientes, login_cliente } from "./controllers/ClienteController";
 import { atualizar_administrador, buscar_administrador, criar_administrador, listar_administradores, login_administrador } from "./controllers/AdministradorController";
@@ -24,11 +24,11 @@ routes.post('/empresa/login', login_empresa);
 /**
  * Rotas da refeicao
  */
-routes.get('/refeicao/cardapio/:id', listar_refeicoes);
-routes.get('/refeicao/:id', busca_refeicao);
-routes.post('/refeicao', upload.array('imagem'), criar_refeicao);
-routes.put('/refeicao/:id', upload.array('imagem'), atualizar_refeicao);
-routes.delete('/refeicao/:id', apagar_refeicao);
+routes.get('/refeicao/cardapio/:id', listar_produtos);
+routes.get('/refeicao/:id', busca_produto);
+routes.post('/refeicao', upload.array('imagem'), criar_produto);
+routes.put('/refeicao/:id', upload.array('imagem'), atualizar_produto);
+routes.delete('/refeicao/:id', apagar_produto);
 
 /**
  * Rotas do pedido

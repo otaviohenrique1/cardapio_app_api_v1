@@ -9,11 +9,9 @@ export default {
       data_cadastro, data_modificacao_cadastro, empresaId
     } = cliente;
 
-    const lista_pedidos = PedidoView.renderMany(pedidos);
-
     return {
       id, codigo, nome, rua, numero, bairro, cidade,
-      estado, email, senha, cep, pedidos: lista_pedidos,
+      estado, email, senha, cep, pedidos: PedidoView.renderMany(pedidos),
       telefone, data_cadastro, data_modificacao_cadastro, empresaId
     };
   },
